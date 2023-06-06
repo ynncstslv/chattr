@@ -73,7 +73,17 @@ const AuthForm = () => {
 	const socialAction = (action: string) => {
 		setIsLoading(true);
 
-		// next-auth social signin
+		signIn(action, { redirect: false })
+			.then((callback) => {
+				if (callback?.error) {
+					toast.error('Invalid Credentials');
+				}
+
+				if (callback?.ok && !callback?.error) {
+					toast.success('Successfully Logged In!');
+				}
+			})
+			.finally(() => setIsLoading(false));
 	};
 
 	return (
