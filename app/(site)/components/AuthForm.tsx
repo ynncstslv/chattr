@@ -4,6 +4,8 @@ import { useCallback, useState } from 'react';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
+import axios from 'axios';
+
 import AuthSocialButton from './AuthSocialButton';
 import Button from '@/app/components/Button';
 import Input from '@/app/components/inputs/Input';
@@ -40,7 +42,7 @@ const AuthForm = () => {
 		setIsLoading(true);
 
 		if (variant === 'REGISTER') {
-			// axios register
+			axios.post('/api/register', data);
 		}
 
 		if (variant === 'LOGIN') {
