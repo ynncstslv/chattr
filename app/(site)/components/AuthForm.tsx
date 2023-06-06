@@ -2,7 +2,11 @@
 
 import { useCallback, useState } from 'react';
 
+import { signIn } from 'next-auth/react';
+
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+
+import { toast } from 'react-hot-toast';
 
 import axios from 'axios';
 
@@ -42,11 +46,27 @@ const AuthForm = () => {
 		setIsLoading(true);
 
 		if (variant === 'REGISTER') {
-			axios.post('/api/register', data);
+			axios
+				.post('/api/register', data)
+				.catch(() => toast.error('Something went wrong!'))
+				.finally(() => setIsLoading(false));
 		}
 
 		if (variant === 'LOGIN') {
-			// next-auth signin
+			signIn('credentials', {
+				...data,
+				redirect: false,
+			})
+				.then((callback) => {
+					if (callback?.error) {
+						toast.error('Invalid Credentials');
+					}
+
+					if (callback?.ok && !callback?.error) {
+						toast.success('Successfully Logged In!');
+					}
+				})
+				.finally(() => setIsLoading(false));
 		}
 	};
 
