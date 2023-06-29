@@ -29,8 +29,8 @@ const MobileItem: FC<MobileItemProps> = ({
 		<Link
 			href={href}
 			className={clsx(
-				'group flex gap-x-3 px-8 py-4 font-semibold text-sm leading-6 text-gray-500 rounded-md hover:text-indigo-600 hover:bg-gray-100',
-				active && 'text-indigo-600 bg-gray-100'
+				'group flex gap-x-3 px-8 py-4 font-semibold text-sm leading-6 text-indigo-200 hover:text-indigo-800 hover:bg-gray-100',
+				active && 'text-pink-600 bg-indigo-800'
 			)}
 			onClick={handleClick}
 		>

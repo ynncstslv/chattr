@@ -15,7 +15,7 @@ const MobileFooter = () => {
 	}
 
 	return (
-		<div className="w-full flex items-center justify-between fixed bottom-0 border-t-[1px] bg-white z-40 lg:hidden">
+		<div className="w-full flex items-center justify-between fixed bottom-0 border-t-[1px] bg-indigo-700 z-40 lg:hidden">
 			{routes.map((item) => (
 				<MobileItem
 					key={item.label}
