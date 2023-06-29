@@ -28,13 +28,13 @@ const ConversationList: FC<ConversationListProps> = ({ initialItems }) => {
 	return (
 		<aside
 			className={clsx(
-				'fixed pb-20 inset-y-0 border-r border-gray-200 overflow-y-auto lg:w-80 lg:block lg:left-20 lg:pb-0',
+				'fixed left-0 pb-20 inset-y-0 border-r border-gray-200 overflow-y-auto lg:w-80 lg:block lg:left-20 lg:pb-0',
 				isOpen ? 'hidden' : 'w-full block left-0'
 			)}
 		>
 			<div className="px-5">
-				<div className="flex justify-between pt-4 mb-4">
-					<div className="font-bold text-2xl text-neutral-800">
+				<div className="flex justify-between py-4 mb-4 border-b-[1px] border-gray-200">
+					<div className="font-bold text-2xl text-indigo-700">
 						Conversations
 					</div>
 					<div className="p-2 text-gray-600 rounded-full bg-gray-100 cursor-pointer transition hover:opacity-75">

@@ -32,7 +32,7 @@ const UserBox: FC<UserBoxProps> = ({ data }) => {
 
 	return (
 		<div
-			className="w-full flex items-center relative space-x-3 p-3 rounded-lg bg-white cursor-pointer transition hover:bg-neutral-100"
+			className="w-full flex items-center space-x-3 relative p-3 rounded-lg bg-white cursor-pointer transition hover:bg-neutral-100"
 			onClick={handleClick}
 		>
 			<Avatar user={data} />
