@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 
 import Link from 'next/link';
 
@@ -9,6 +9,7 @@ import { Conversation, User } from '@prisma/client';
 import useOtherUser from '@/app/hooks/useOtherUser';
 
 import Avatar from '@/app/components/Avatar';
+import ProfileDrawer from './ProfileDrawer';
 
 import { HiChevronLeft, HiEllipsisHorizontal } from 'react-icons/hi2';
 
@@ -21,6 +22,8 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ conversation }) => {
 	const otherUser = useOtherUser(conversation);
 
+	const [drawerOpen, setDrawerOpen] = useState(false);
+
 	const statusText = useMemo(() => {
 		if (conversation.isGroup) {
 			return `${conversation.users.length} members`;
@@ -31,28 +34,35 @@ const Header: FC<HeaderProps> = ({ conversation }) => {
 	}, [conversation]);
 
 	return (
-		<div className="w-full flex items-center justify-between px-4 py-3 border-b-[1px] bg-white shadow-sm sm:px-4 lg:px-6">
-			<div className="flex items-center gap-3">
-				<Link
-					href="/conversations"
-					className="block text-pink-500 cursor-pointer transition hover:text-pink-700 lg:hidden"
-				>
-					<HiChevronLeft size={32} />
-				</Link>
-				<Avatar user={otherUser} />
-				<div className="flex flex-col">
-					<div>{conversation.name || otherUser.name}</div>
-					<div className="font-light text-sm text-neutral-500">
-						{statusText}
+		<>
+			<ProfileDrawer
+				data={conversation}
+				isOpen={drawerOpen}
+				onClose={() => setDrawerOpen(false)}
+			/>
+			<div className="w-full flex items-center justify-between px-4 py-3 border-b-[1px] bg-white shadow-sm sm:px-4 lg:px-6">
+				<div className="flex items-center gap-3">
+					<Link
+						href="/conversations"
+						className="block text-pink-500 cursor-pointer transition hover:text-pink-700 lg:hidden"
+					>
+						<HiChevronLeft size={32} />
+					</Link>
+					<Avatar user={otherUser} />
+					<div className="flex flex-col">
+						<div>{conversation.name || otherUser.name}</div>
+						<div className="font-light text-sm text-neutral-500">
+							{statusText}
+						</div>
 					</div>
 				</div>
+				<HiEllipsisHorizontal
+					size={32}
+					className="text-pink-500 cursor-pointer transition hover:text-pink-700"
+					onClick={() => setDrawerOpen(true)}
+				/>
 			</div>
-			<HiEllipsisHorizontal
-				size={32}
-				className="text-pink-500 cursor-pointer transition hover:text-pink-700"
-				onClick={() => {}}
-			/>
-		</div>
+		</>
 	);
 };
 
