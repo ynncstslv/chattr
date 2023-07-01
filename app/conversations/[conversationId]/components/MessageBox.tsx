@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
 
@@ -8,9 +8,11 @@ import { FullMessageType } from '@/app/types';
 
 import clsx from 'clsx';
 
-import Avatar from '@/app/components/Avatar';
 import { format } from 'date-fns';
 import Image from 'next/image';
+
+import Avatar from '@/app/components/Avatar';
+import ImageModal from './ImageModal';
 
 interface MessageBoxProps {
 	data: FullMessageType;
@@ -19,6 +21,8 @@ interface MessageBoxProps {
 
 const MessageBox: FC<MessageBoxProps> = ({ data, isLast }) => {
 	const session = useSession();
+
+	const [imageModalOpen, setImageModalOpen] = useState(false);
 
 	const isOwn = session?.data?.user?.email === data?.sender?.email;
 
@@ -49,6 +53,11 @@ const MessageBox: FC<MessageBoxProps> = ({ data, isLast }) => {
 					</div>
 				</div>
 				<div className={message}>
+					<ImageModal
+						src={data.image}
+						isOpen={imageModalOpen}
+						onClose={() => setImageModalOpen(false)}
+					/>
 					{data.image ? (
 						<Image
 							src={data.image}
@@ -56,6 +65,7 @@ const MessageBox: FC<MessageBoxProps> = ({ data, isLast }) => {
 							height="288"
 							className="object-cover cursor-pointer translate transition hover:scale-110"
 							alt="Image"
+							onClick={() => setImageModalOpen(true)}
 						/>
 					) : (
 						<div>{data.body}</div>
