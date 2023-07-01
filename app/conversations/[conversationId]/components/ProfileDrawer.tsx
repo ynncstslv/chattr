@@ -10,6 +10,8 @@ import { format } from 'date-fns';
 import { Dialog, Transition } from '@headlessui/react';
 
 import Avatar from '@/app/components/Avatar';
+import useActiveList from '@/app/hooks/useActiveList';
+
 import AvatarGroup from '@/app/components/AvatarGroup';
 import ConfirmModal from './ConfirmModal';
 
@@ -28,6 +30,10 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) => {
 
 	const [confirmOpen, setConfirmOpen] = useState(false);
 
+	const { members } = useActiveList();
+
+	const isActive = members.indexOf(otherUser?.email!) !== -1;
+
 	const joinedDate = useMemo(() => {
 		return format(new Date(otherUser.createdAt), 'PP');
 	}, [otherUser.createdAt]);
@@ -42,8 +48,8 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) => {
 		}
 
 		// going to be dynamic
-		return 'Active';
-	}, [data]);
+		return isActive ? 'Active' : 'Offline';
+	}, [data, isActive]);
 
 	return (
 		<>
