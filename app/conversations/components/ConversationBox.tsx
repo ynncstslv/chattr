@@ -15,6 +15,7 @@ import clsx from 'clsx';
 import format from 'date-fns/format';
 
 import Avatar from '@/app/components/Avatar';
+import AvatarGroup from '@/app/components/AvatarGroup';
 
 interface ConversationBoxProps {
 	data: FullConversationType;
@@ -75,7 +76,11 @@ const ConversationBox: FC<ConversationBoxProps> = ({ data, selected }) => {
 			)}
 			onClick={handleClick}
 		>
-			<Avatar user={otherUser} />
+			{data.isGroup ? (
+				<AvatarGroup users={data.users} />
+			) : (
+				<Avatar user={otherUser} />
+			)}
 			<div className="min-w-0 flex-1">
 				<div className="focus:outline-none">
 					<div className="flex items-center justify-between mb-1">
