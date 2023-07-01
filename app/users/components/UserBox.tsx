@@ -9,6 +9,7 @@ import axios from 'axios';
 import { User } from '@prisma/client';
 
 import Avatar from '@/app/components/Avatar';
+import LoadingModal from '@/app/components/LoadingModal';
 
 interface UserBoxProps {
 	data: User;
@@ -31,19 +32,22 @@ const UserBox: FC<UserBoxProps> = ({ data }) => {
 	}, [data, router]);
 
 	return (
-		<div
-			className="w-full flex items-center space-x-3 relative p-3 rounded-lg bg-white cursor-pointer transition hover:bg-neutral-100"
-			onClick={handleClick}
-		>
-			<Avatar user={data} />
-			<div className="min-w-0 flex-1">
-				<div className="focus:outline-none">
-					<div className="flex items-center justify-between mb-1">
-						<p className="font-medium text-sm text-gray-900">{data.name}</p>
+		<>
+			{isLoading && <LoadingModal />}
+			<div
+				className="w-full flex items-center space-x-3 relative p-3 rounded-lg bg-white cursor-pointer transition hover:bg-neutral-100"
+				onClick={handleClick}
+			>
+				<Avatar user={data} />
+				<div className="min-w-0 flex-1">
+					<div className="focus:outline-none">
+						<div className="flex items-center justify-between mb-1">
+							<p className="font-medium text-sm text-gray-900">{data.name}</p>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
