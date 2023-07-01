@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import { Dialog, Transition } from '@headlessui/react';
 
 import Avatar from '@/app/components/Avatar';
+import AvatarGroup from '@/app/components/AvatarGroup';
 import ConfirmModal from './ConfirmModal';
 
 import { IoClose, IoTrash } from 'react-icons/io5';
@@ -93,7 +94,11 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) => {
 											<div className="flex-1 relative px-4 mt-6 sm:px-6">
 												<div className="flex flex-col items-center">
 													<div className="mb-2">
-														<Avatar user={otherUser} />
+														{data.isGroup ? (
+															<AvatarGroup users={data.users} />
+														) : (
+															<Avatar user={otherUser} />
+														)}
 													</div>
 													<div>{title}</div>
 													<div className="text-sm text-gray-500">
